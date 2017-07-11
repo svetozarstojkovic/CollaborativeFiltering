@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie details</title>
+    <style>
+        .rating {
+            unicode-bidi: bidi-override;
+            direction: rtl;
+        }
+
+        .rating > span {
+            font-size: 20px;
+            color: gold;
+        }
+
+        .rating > span:hover:before,
+        .rating > span:hover ~ span:before {
+            content: "\2605";
+            position: absolute;
+        }
+    </style>
+</head>
+<body style="padding: 10%">
+
+<table align="center" border="1" style="table-layout: fixed; background: white">
+    <tr>
+        <td style="padding-left: 10px" colspan="2">
+            <table style="width: 100%">
+                <tr>
+                    <td>
+                        <h4>{{ title }}</h4>
+                    </td>
+                    <td width="150px">
+                        <div class="rating">
+                            <span onclick='rate("{{ title }}", 5)'>☆</span>
+                            <span onclick='rate("{{ title }}", 4)'>☆</span>
+                            <span onclick='rate("{{ title }}", 3)'>☆</span>
+                            <span onclick='rate("{{ title }}", 2)'>☆</span>
+                            <span onclick='rate("{{ title }}", 1)'>☆</span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </td>
+
+    </tr>
+    <tr>
+        <td rowspan="2">
+            <img src="{{ cover }}">
+        </td>
+        <td style="padding: 10px">
+            {{ plot[0] }}
+        </td>
+    </tr>
+    <tr>
+        <td style="padding: 10px">
+        Genre:
+            {% for genre in genres %}
+                {{ genre }},
+            {% endfor %}
+        </td>
+
+    </tr>
+
+</table>
+</body>
+</html>

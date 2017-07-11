@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<head>
+    <script src="/static/jquery-3.2.1.min.js"></script>
+    <title>Recommender</title>
+
+    <script>
+        function login(){
+            console.log("usao u login");
+            obj = {
+                "username":document.getElementById("username").value,
+                "password":document.getElementById("password").value
+            };
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:5000/login",
+                data: JSON.stringify(obj),
+                crossDomain: true,
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    'Content-Type':'application/json'
+                },
+                success: function (data) {
+
+              }
+            });
+        }
+    </script>
+</head>
+<body>
+
+
+<h1>Not bragging but this is best collaborative recommender system in the world</h1>
+Login user
+<form action="{{ url_for('profile') }}" method=post>
+    <table>
+        <tr><td><input type=text placeholder="Username..." name=username></td></tr>
+        <tr><td><input type=password placeholder="Password" name=password></td></tr>
+        <tr><td><input type=submit value=Login></td></tr>
+    </table>
+</form>
+<br>
+Register user
+<form action="{{ url_for('register') }}" method=post>
+    <table>
+        <tr><td><input type=text placeholder="Username..." name=username></td></tr>
+        <tr><td><input type=password placeholder="Password" name=password></td></tr>
+        <tr><td><input type=text placeholder="Full name..." name=full_name></td></tr>
+        <tr><td><input type=submit value=Register></td></tr>
+    </table>
+</form>
+
+
+</body>

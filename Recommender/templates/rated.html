@@ -1,0 +1,18 @@
+
+<h3>Rated movies</h3>
+<table id="ratedMovieTable" style="max-width: 500px; background: white" class="table table-striped table-bordered">
+    <thead>
+    <tr>
+        <td>Title</td>
+        <td>Rating</td>
+    </tr>
+    </thead>
+    <tbody>
+    {% for movie in my_movies %}
+        <tr onclick='movieDetails("{{ movie[0] }}")' style="cursor: pointer">
+            <td>{{ movie[0] }}</td>
+            <td>{{ movie[1] }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

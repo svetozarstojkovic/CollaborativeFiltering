@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<title>Profile</title>
+
+<head>
+    <meta charset="UTF-8">
+    <script src="/static/jquery-3.2.1.min.js"></script>
+    <script src="/static/angular.js"></script>
+
+    <link rel="stylesheet" href="/static/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <script src="/static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="/static/jquery.dataTables.min.css">
+    <script src="/static/jquery.dataTables.min.js"></script>
+
+    <script src="/static/profile.js"></script>
+
+
+
+    <title>Recommender</title>
+
+    <style>
+        .pagination {
+            display: inline-block;
+        }
+
+        .pagination a {
+            color: black;
+            float: left;
+            padding: 8px 16px;
+            text-decoration: none;
+        }
+
+        .pagination a.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .scrollingTable {
+            height: 30em; overflow: auto;
+        }
+
+        #myInput {
+            background-image: url('/static/images/lupa.png'); /* Add a search icon to input */
+            background-position: 10px 12px; /* Position the search icon */
+            background-repeat: no-repeat; /* Do not repeat the icon image */
+            background-size: 20px 20px;
+            width: 100%; /* Full-width */
+            font-size: 16px; /* Increase font-size */
+            padding: 12px 20px 12px 40px; /* Add some padding */
+            border: 1px solid #ddd; /* Add a grey border */
+            margin-bottom: 12px; /* Add some space below the input */
+        }
+
+        #notRatedTable {
+            border-collapse: collapse; /* Collapse borders */
+            width: 100%; /* Full-width */
+            border: 1px solid #ddd; /* Add a grey border */
+            font-size: 18px; /* Increase font-size */
+        }
+
+        #notRatedTable th, #notRatedTable td {
+            text-align: left; /* Left-align text */
+            padding: 12px; /* Add padding */
+        }
+
+        #notRatedTable tr {
+            /* Add a bottom border to all table rows */
+            border-bottom: 1px solid #ddd;
+        }
+
+        #notRatedTable tr.header, #notRatedTable tr:hover {
+            /* Add a grey background color to the table header and on hover */
+            background-color: #f1f1f1;
+        }
+
+        .pagination a:hover:not(.active) {background-color: #ddd;}
+
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid #3498db;
+            width: 120px;
+            height: 120px;
+            -webkit-animation: spin 2s linear infinite;
+            animation: spin 2s linear infinite;
+        }
+
+        @-webkit-keyframes spin {
+            0% { -webkit-transform: rotate(0deg); }
+            100% { -webkit-transform: rotate(360deg); }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+    </style>
+
+</head>
+<body onload="init('{{ username }}')">
+
+    <div class="container" style="padding-top: 20px">
+        <a href="/" style="float: right">Logout</a>
+        <h3 align="center">Username: {{ username }}</h3>
+        <br>
+        {#        <input type="text" id="myInput" onkeyup="filter()" placeholder="Search for names..">#}
+        <table>
+            <tr>
+                <td align="center" style="width:100%">
+                    <div id="movie_details" style="width: 100%"></div>
+                </td>
+            </tr>
+        </table>
+        <br>
+        <table style="float:right;">
+            <tr>
+                <td align="center">
+                    <div id="rated" style="width: 500px; "></div>
+                </td>
+            </tr>
+        </table>
+
+
+        <br>
+
+        <table >
+            <tr>
+                <td align="center">
+                    <ul class="pagination">
+                        <li><a onclick="doJaccard()" style="cursor: pointer">Jaccard</a></li>
+                        <li><a onclick="doCosine()" style="cursor: pointer">Cosine</a></li>
+                        <li><a onclick="doCenteredCosine()" style="cursor: pointer">Centered cosine</a></li>
+                        <li><a onclick="doPearson()" style="cursor: pointer">Pearson</a></li>
+                    </ul>
+                    <div id="recommended" style="width: 500px"></div>
+                </td>
+            </tr>
+        </table>
+        <br>
+        <div style="float: right">
+            <table  >
+                <tr>
+                    <td align="center">
+                        <h3 style="cursor: pointer" onclick="">All movies</h3>
+                        <input type="text" id="myInput" onkeyup="filter()" placeholder="Search for names..">
+                        <div class="scrollingTable" style="width: 100%" id="all_movies" >
+
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <br>
+        </div>
+        <br>
+            <div id="snackbarDiv"></div>
+        <br>
+    </div>
+</body>
+
